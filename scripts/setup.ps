@@ -1,0 +1,11 @@
+param(
+  [int]$RetentionDays = 30
+)
+Write-Host "Generating data key if missing..."
+if (!(Test-Path "keys\data.key")) {
+  python keygen.py
+}
+$env:RETENTION_DAYS = $RetentionDays
+Write-Host "Bringing up core services..."
+docker compose up -d keycloak app prometheus grafana loki promtail
+Write-Host "Done."

@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: 'health-api'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['app:8443']
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
